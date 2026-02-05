@@ -1,15 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Title</title>
-        <link rel="stylesheet" href="styles.css" />
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <h1 class="title">Hello World</h1>
-        <div id="mainDiv">Hello Div</div>
-        <br />
-        <button onclick="buttonClicked()">Click me</button>
-    </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GEO 455 - Lab 1</title>
+
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 0; line-height: 1.5; }
+    header, main, footer { max-width: 900px; margin: 0 auto; padding: 16px; }
+    nav a { margin-right: 12px; }
+    .hero { background: #f3f3f3; border-radius: 12px; padding: 16px; }
+    .center { text-align: center; }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="center">Melanie Weis</h1>
+    <p class="center">GEO 455 • Web Mapping • Spring 2026</p>
+
+    <nav class="center">
+      <a href="#about">About</a>
+      <a href="#movies">Movies</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="about">
+      <h2>About me</h2>
+      <p>Hi! I’m an Environmental Science and GIS major interested in sustainable transportation planning.</p>
+
+      <!-- IMAGE TEMPLATE (required) -->
+      <figure>
+        <!-- If this file is in an images/ folder next to this HTML file, use: images/profile.jpg -->
+        <!-- If this HTML file is inside a labs/ folder, use: ../images/profile.jpg -->
+        <img src="profile.JPG" alt="Photo of Melanie" width="320">
+        <figcaption>Figure 1. This picture is from a wedding I went to in October of 2023 and is unfortunately one of the last times I got dressed up.</figcaption>
+      </figure>
+    </section>
+
+    <section id="movies">
+      <h2>Recent movies that I have watched that I would recommend:</h2>
+      <ul>
+        <li><a href="https://www.google.com/search?q=the+rip&rlz=1C1ONGR_enUS1066US1066&oq=the+rip&gs_lcrp=EgZjaHJvbWUqEAgAEAAYgwEY4wIYsQMYgAQyEAgAEAAYgwEY4wIYsQMYgAQyDQgBEC4YgwEYsQMYgAQyDQgCEAAYgwEYsQMYgAQyDQgDEAAYgwEYsQMYgAQyDQgEEAAYgwEYsQMYgAQyDQgFEC4YrwEYxwEYgAQyDQgGEAAYgwEYsQMYgAQyCggHEAAYsQMYgAQyDQgIEAAYgwEYsQMYgAQyDQgJEAAYgwEYsQMYgATSAQgxMTEyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8">The Rip</a></li>
+        <li><a href="https://www.google.com/search?gs_ssp=eJzj4tVP1zc0TKsyS7GsyE02YPQSTixLLEksUkjLLEpVSMxLUUgszgAAz9ILvA&q=avatar+fire+and+ash&rlz=1C1ONGR_enUS1066US1066&oq=avatra&gs_lcrp=EgZjaHJvbWUqDggDEC4YChgLGLEDGIAEMgYIABBFGDkyCQgBEAAYChiABDINCAIQLhjHARjRAxiABDIOCAMQLhgKGAsYsQMYgAQyDggEEC4YChgLGLEDGIAEMg4IBRAuGAoYCxixAxiABDIHCAYQABiABDIHCAcQABiABDIOCAgQLhgKGAsYsQMYgAQyDggJEC4YChgLGLEDGIAE0gEINzc3NWowajmoAgCwAgA&sourceid=chrome&ie=UTF-8">Avatar: Fire and Ash</a></li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:weis2727@uwlax.edu?subject=GEO%20455%20Webmapping">Email me</a>
+        • <a href="https://github.com/weis2727">GitHub</a>
+      </p>
+    </section>
+      <br><p> Here is the trailer for one of my favorite recent movies: The Rip!</p>
+      <a href="https://youtu.be/yeR5bcbRPak?si=MxMYA_HA9FbwLBA1"><img src="rip.JPG" width=400px></a>
+  </main>
+
+<footer class="center">
+    <small><a href="../index.html">Back to main page</a></small>
+  </footer>
+</body>
 </html>
