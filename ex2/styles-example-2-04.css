@@ -81,6 +81,17 @@ body {
   border-radius: 10px;
 }
 
+.sidebarinv {
+  margin: 8px;
+  padding: 8px;
+  background: rgba(197, 209, 212, 0.96);
+  border: 1px solid #777;
+  border-radius: 12px;
+}
+.h2 {
+  padding: 4px;
+}
+
 /* Responsive: stack sidebars under header on narrow screens */
 @media (max-width: 900px) {
   .container {
