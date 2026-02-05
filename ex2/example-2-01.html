@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <title>CSS conflicts</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+        <link href="https://fonts.googleapis.com/css2?family=Carattere&display=swap" rel="stylesheet">
+ 
+        <style> /*embedded CSS*/ 
+            h1 {font-family: "Courier New", monospace; }
+            h2 {font-family: 'Carattere'; 
+                font-size: 38px;}
+            h3 {font-family: 'Playfair Display';
+                font-size: 24px; 
+                color: deeppink;}
+            i { color: green; }
+            i { color: red; }
+            b { color: #409164; }
+            p b { color: #2727cf; } /*% is relative sizing*/
+            #intro { font-size: 100%; }
+            p {font-family: 'Raleway', sans-serif;}
+            p a {font-family:'Playfair Display';
+                color: green}
+        </style>
+    </head>
+    
+    <body>
+        <h1>This is a my <b>first</b> CSS styling document</h1>
+        <h2>I plan to make the page beautiful!!</h2>
+        <h3>I successfully imported a new font and changed the size and color!!</h3>
+        <p id="intro">This is the <i>introduction</i> paragraph. It has an <b>'id' attribute with the value of "intro"</b>. It is styled differently from all other paragraphs, using a CSS rule with an <i>ID Selector</i>.</p>
+        <p>This is the <i>second</i> paragraph. It <b>does not</b> have an 'id' attribute.</p>
+        <p>This is the <i>third</i> paragraph. It <b>also does not</b> have an 'id' attribute.</p>
+		<p> <a href='geo455_ex2.html'>Back to Main Page</a> </p>
+    </body>
+</html>
+
