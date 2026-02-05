@@ -30,7 +30,7 @@ body {
 }
 
 .sidebar {
-  padding: 12px;
+  padding: 2px;
   background: rgba(99, 200, 228, 0.5);
   border: 1px solid #777;
   border-radius: 12px;
@@ -38,6 +38,13 @@ body {
 
 .sidebar.left { grid-area: left; }
 .sidebar.right { grid-area: right; }
+
+.sidebarinv {
+  margin: 8px;
+  padding: 8px;
+  background: rgba(197, 209, 212, 0.96);
+  border: 1px solid #777;
+  border-radius: 12px;}
 
 .content {
   grid-area: main;
@@ -63,7 +70,7 @@ body {
 .menuitem {
   margin: 6px 0;
   padding: 4px 6px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.81);
   border-radius: 6px;
 }
 
