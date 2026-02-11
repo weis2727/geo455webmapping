@@ -19,4 +19,4 @@ L.marker([44.261665, -88.413003])
 
 L.marker([44.261665, -88.410999])
   .addTo(map)
-  .bindPopup("<b>D2 Sports Pub</b><br><br> This is where my friends go when we are looking for a place to be absolutely packed. The group in the photo are my closest friends on the planet! <br> <br><img src='imgs/d2.JPG' width='170px'>");
+  .bindPopup("<b>D2 Sports Pub</b><br><br> This is where my friends go when we are looking for a place to be absolutely packed. The group in the photo are my closest friends on the planet! <br> <br><img src='imgs/d.JPG' width='170px'>");
