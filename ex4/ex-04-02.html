@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Earth poles</title>
+    </head>
+    <body>
+        <h2>Earth Poles Viewer</h2>
+        <img id="myImage" src="images/north.svg" width = 300><br>
+        <input type="button" value="North Pole" id="north"> <!-- event listener -->
+        <input type="button" value="South Pole" id="south"> <!-- event listener -->
+        <input type="button" value="Africa" id="africa">
+        <script>
+            function showNorth() {              //event listeners function
+                document
+                    .getElementById("myImage")
+                    .src = "images/north.svg";
+            }
+            function showSouth() {              //event listeners function
+                document
+                    .getElementById("myImage")
+                    .src = "images/south.svg";
+            }
+            function showAfrica() {
+                document
+                .getElementById("myImage")
+                .src = "images/africa.png";
+            }
+            document
+                .getElementById("north")
+                .addEventListener("mouseover", showNorth);  //fetching the function
+            document
+                .getElementById("south")
+                .addEventListener("mouseover", showSouth);  //fetching the function
+            document
+                .getElementById("africa")
+                .addEventListener("mouseover", showAfrica);
+            
+        </script>
+        
+        <br><br><a href = "geo455_ex4.html"> back to previous page</a>
+    </body>
+</html>
+
