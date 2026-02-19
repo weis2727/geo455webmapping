@@ -1,15 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Title</title>
-        <link rel="stylesheet" href="styles.css" />
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <h1 class="title">Hello World</h1>
-        <div id="mainDiv">Hello Div</div>
-        <br />
-        <button onclick="buttonClicked()">Click me</button>
-    </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GEO 455: Lab 3</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  
+  <!-- Make sure you put the leaflet map library AFTER Leaflet's CSS --> 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!--Your choice of Google fonts- make sure to update in CSS file -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="lab3_style.css" />
+</head>
+<body>
+
+  <h1 id="title">Lab 3: Washington D.C. in 2023!</h1>
+
+  <div id="map"></div>
+  <div id="info">
+    <h2>Our stops:</h2>
+    <p> <ol id="stops"></ol> 
+    <img src="images/dchome.jpg" alt="Melanie and her parents in front of the Washington Monument." width="250px">
+    <p><a href=../index.html>Return to main page</a></p>
+  </div>
+  <div id="footer">Designed by Melanie Weis</div>
+     <!-- Your map code  -->
+  <script>
+     var data = ["Smithsonian National Zoological Park", "The White House", "National Portrait Gallery", "Smithsonian National Museum of Natural History", "United States Botanic Garden", "Library of Congress", "Supreme Court", "United States Capitol Building", 
+                 "Smithsonian National Museum of American History", "Washington Monument", "World War II Memorial", "Lincoln Memorial"];
+     var html = "";
+     data.forEach(function(element) {
+       html += "<li>" + element + "</li>";
+     });
+     document.getElementById("stops").innerHTML = html;
+  </script>
+  <script src="lab3_map.js"></script>
+</body>
 </html>
