@@ -30,7 +30,7 @@ L.easyButton(('<img src="images/globe_icon.png", height=70%>'), function () {
 var greatwallPopup = "Great Wall of China<br/><img src='images/greatwall.jpg' alt='great wall wiki' width='150px'/>";
 var chichenPopup = "Chichen-Itza<br/><img src='images/chich.jpg' alt='chichen itza wiki' width='150px'/>";
 var petraPopup = "Petra<br/><img src='images/petrea.jpg' alt='petra wiki' width='150px'/>";
-var machPopup = "Machu Pichu<br/><img src='images/mp.jpg' alt='machu pichu wiki' width='150px'/>";
+var machPopup = "Machu Pichu<br/><img src='images/mp.JPG' alt='machu pichu wiki' width='150px'/>";
 var christPopup = "Christ the Redeemer<br/><img src='images/christ.jpg' alt='christ the redeemer wiki' width='150px'/>";
 var coloPopup = "The Colosseum<br/><img src='images/coll.jpg' alt='colosseum wiki' width='150px'/>";
 var tajPopup = "Taj Mahal<br/><img src='images/taj.jpg' alt='taj mahal wiki' width='150px'/>";
@@ -209,4 +209,5 @@ function onMapClick(e) {
 }
 
 // Leaflet event API
+
 map.on("click", onMapClick);
