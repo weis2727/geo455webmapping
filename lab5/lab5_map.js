@@ -27,13 +27,13 @@ L.easyButton(('<img src="images/globe_icon.png", height=70%>'), function () {
 
 /*custom popups*/
 /*defining each popup for each location*/
-var greatwallPopup = "Great Wall of China<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/20090529_Great_Wall_8185.jpg/256px-20090529_Great_Wall_8185.jpg' alt='great wall wiki' width='150px'/>";
-var chichenPopup = "Chichen-Itza<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/1920px-Chichen_Itza_3.jpg' alt='chichen itza wiki' width='150px'/>";
-var petraPopup = "Petra<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/The_Monastery%2C_Petra%2C_Jordan8.jpg/256px-The_Monastery%2C_Petra%2C_Jordan8.jpg' alt='petra wiki' width='150px'/>";
-var machPopup = "Machu Pichu<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/256px-Machu_Picchu%2C_Peru.jpg' alt='machu pichu wiki' width='150px'/>";
-var christPopup = "Christ the Redeemer<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Aerial_view_of_the_Statue_of_Christ_the_Redeemer.jpg/256px-Aerial_view_of_the_Statue_of_Christ_the_Redeemer.jpg' alt='christ the redeemer wiki' width='150px'/>";
-var coloPopup = "The Colosseum<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Colosseum_in_Rome-April_2007-1-_copie_2B.jpg/256px-Colosseum_in_Rome-April_2007-1-_copie_2B.jpg' alt='colosseum wiki' width='150px'/>";
-var tajPopup = "Taj Mahal<br/><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Taj_Mahal%2C_Agra%2C_India.jpg/1920px-Taj_Mahal%2C_Agra%2C_India.jpg' alt='taj mahal wiki' width='150px'/>";
+var greatwallPopup = "Great Wall of China<br/><img src='images/greatwall.jpg' alt='great wall wiki' width='150px'/>";
+var chichenPopup = "Chichen-Itza<br/><img src='images/chich.jpg' alt='chichen itza wiki' width='150px'/>";
+var petraPopup = "Petra<br/><img src='images/petrea.jpg' alt='petra wiki' width='150px'/>";
+var machPopup = "Machu Pichu<br/><img src='images/mp.jpg' alt='machu pichu wiki' width='150px'/>";
+var christPopup = "Christ the Redeemer<br/><img src='images/christ.jpg' alt='christ the redeemer wiki' width='150px'/>";
+var coloPopup = "The Colosseum<br/><img src='images/coll.jpg' alt='colosseum wiki' width='150px'/>";
+var tajPopup = "Taj Mahal<br/><img src='images/taj.jpg' alt='taj mahal wiki' width='150px'/>";
 var customOptions ={'maxWidth': '150','className' : 'custom'};
 
 /*LayerGroup and Data Array*/
