@@ -1,0 +1,126 @@
+{
+  "type": "FeatureCollection",
+  "name": "mtn_peaks_himalayas",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Kangchenjunga",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8586,
+        "NUM_EXP": 31,
+        "NUM_EXPED": 108
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [88.14739, 27.70314]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Everest",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8850,
+        "NUM_EXP": 172,
+        "NUM_EXPED": 1274
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [86.92529, 27.98791]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Lhotse",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8516,
+        "NUM_EXP": 9,
+        "NUM_EXPED": 192
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [86.9337, 27.96204]
+      }
+    },
+        {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Makalu",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8485,
+        "NUM_EXP": 30,
+        "NUM_EXPED": 223
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [87.08944, 27.88988]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Cho Oyu",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8188,
+        "NUM_EXP": 38,
+        "NUM_EXPED": 1019
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [86.66437, 28.09585]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Dhaulagiri",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8167,
+        "NUM_EXP": 17,
+        "NUM_EXPED": 86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [83.49306, 28.69667]
+      }
+    },
+        {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Manaslu",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8163,
+        "NUM_EXP": 33,
+        "NUM_EXPED": 661
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [84.55972, 28.54972]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TITLE": "Nanga Parbat",
+        "VISIBLE": 1,
+        "TYPEID": 0,
+        "PEAK_HEIGHT": 8126,
+        "NUM_EXP": 11,
+        "NUM_EXPED": 287
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [74.58917, 35.23722]
+      }
+    }
+  ]
+}
