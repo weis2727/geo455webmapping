@@ -86,7 +86,8 @@
             { name: "Al-Qahirah (Cairo)", country: "Egypt", population: "25.6 million", lat: 30.0444, lon: 31.2357 },
             { name: "Manila", country: "Philippines", population: "24.7 million", lat: 14.5995, lon: 120.9842 },
             { name: "Kolkata", country: "India", population: "22.5 million", lat: 22.5726, lon: 88.3639 },
-            { name: "Seoul", country: "South Korea", population: "22.5 million", lat: 37.5665, lon: 126.9780 }
+            { name: "Seoul", country: "South Korea", population: "22.5 million", lat: 37.5665, lon: 126.9780 },
+            { name: "Appleton", country: "United States", population: "70,000", lat: 44.26140018375144, lon: -88.39971858344755}
         ];
 
         // STEP 2: Build lists of latitude and longitude values
@@ -95,7 +96,7 @@
 
         for (var i = 0; i < cities.length; i++) {
             latList.push(cities[i].lat);
-            lonList.push(cities[i].lon); //stores information instead of replacing each on each time.. .push() adds elements to the end of the list
+            lonList.push(cities[i].lon);
         }
 
         // Convert the arrays into comma-separated strings for the API request
@@ -133,15 +134,6 @@
             return "Hazardous";
         }
 
-        // change radius based on pm2.5
-        function getradius(pm) {
-            if (pm <= 12) return 10;
-            if (pm <= 35.5) return 15;
-            if (pm <= 55.5) return 20;
-            if (pm <= 150.5) return 25;
-            if (pm <= 250.5) return 30;
-            return 35;
-        }
         // STEP 8: Fetch the air quality data
         fetch(apiURL)
             .then(response => response.json())
@@ -168,7 +160,7 @@
 
                     // STEP 11: Create a circle marker and style it by AQI severity
                     var marker = L.circleMarker([city.lat, city.lon], {
-                        radius: getRadius(pm25),
+                        radius: 10,
                         fillColor: getAQIColor(aqi),
                         color: "#222",
                         weight: 1,
