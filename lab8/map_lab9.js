@@ -46,4 +46,6 @@ function play(){
 function pause(){
     migrationLayer.pause();
 }
-        
+function returnto(){
+  window.location.href = "../index.html";
+}
