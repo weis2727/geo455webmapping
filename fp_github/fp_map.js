@@ -1,13 +1,22 @@
 //--create map
 var map = L.map("map", {
-  center: [44.1544061, -88.2929276],
+  center: [44.15069556282122, -88.28347180346218],
   zoom: 14,
 });
+
+// initialize almostOver
+if (L.almostOver) {
+    map.almostOver = L.almostOver(map);
+    map.almostOver.setOptions({ tolerance: 6 });
+}
 
 /*creating basemaps*/
 var satellite_base = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 }).addTo(map);
+var light = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO'
+});
 
 //-- mini map
 var miniLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -28,7 +37,7 @@ return value === "Hike" ? '#5286e4' :
            'red'; // obvious fallback
 }
 
-//color for slow
+//color for slope
 function getSlopeColor (value) {
     return value < 5 ? '#38A800' :
             value < 10 ? '#8DD400' :
@@ -78,6 +87,57 @@ function styleparking(feature) {
     };
 }
 
+function getViewshedColor(value) {
+    return value === "Northern Overlook" ? "#e41a1c" : 
+    value ==="Escarpment Overlook" ? "#377eb8" : 
+    value === "Southern Overlook" ? "#984ea3" :
+    value === "Observation Tower" ? "#4daf4a" :
+    '#bababa';
+}
+
+function styleviewshed(feature) {
+    return {
+        fillColor: getViewshedColor(feature.properties.vis_from),
+        fillOpacity: 0.3,
+        color: getViewshedColor(feature.properties.vis_from),
+        weight: 2
+    };
+}
+
+var bathroomIcon = L.icon({
+    iconUrl: 'images/bathroom_icon.png',
+    iconSize: [20, 20],
+    iconAnchor: [12, 12]
+});
+
+var overlookIcon = L.icon({
+    iconUrl: 'images/overlook_icon.png',
+    iconSize: [20,20],
+    iconAnchor: [12,12]
+});
+
+var towerIcon = L.icon({
+    iconUrl: 'images/tower_icon.png',
+    iconSize: [15,30],
+    iconAnchor: [12,12]
+});
+
+var overlookMarkers = {};
+
+var officeIcon= L.icon ({
+    iconUrl: 'images/park_icon.png',
+    iconSize: [20,20],
+    iconAnchor: [12,12]
+});
+
+function poiMarker(type) {
+    return type === "Bathrooms" ? bathroomIcon : officeIcon;
+}
+
+function viewPOIMarker(type) {
+    return type === "Observation Tower" ? towerIcon : overlookIcon;
+}
+
 // highlight function
 function highlightFeatures(e) {
     var layer = e.target;
@@ -94,32 +154,93 @@ function highlightFeatures(e) {
 
 // reset functions
 function resetTrailHighlight(e) {
-    hikeLayer.resetStyle(e.target);
-    horseBikeLayer.resetStyle(e.target);
+    if (hikeLayer.hasLayer(e.target)) {
+        hikeLayer.resetStyle(e.target);
+    }
+    if (horseBikeLayer.hasLayer(e.target)) {
+        horseBikeLayer.resetStyle(e.target);
+    }
 
     e.target.closePopup();
 }
-
 
 // interaction functions
 function onEachTrailFeature(feature, layer) {
     layer.bindPopup(
         '<strong>' + feature.properties.Name + '</strong><br>' + feature.properties.SUM_Miles + ' miles'
     );
-    
+
+    map.almostOver.addLayer(layer);
+
     layer.on({
-        mouseover: function (e) {
-            highlightFeatures(e);
-            e.target.openPopup();
-        },
-        mouseout: resetTrailHighlight,
-        
         click: function (e) {
             map.fitBounds(e.target.getBounds());
         }
     });
 }
 
+function onEachParkingFeature(feature, layer) {
+    layer.on({
+ 
+        click: function (e) {
+            map.fitBounds(e.target.getBounds());
+        }
+    });
+}
+
+function onEachParkingPointFeature(feature, layer) {
+    layer.on({
+ 
+        click: function (e) {
+            map.setView(e.latlng, 18);
+        }
+    });
+}
+
+function toTitleCase(str) {
+  if (!str) return "Unnamed Road";
+  return str.toLowerCase().split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+
+function onEachRoadFeature(feature,layer) {
+    var name = feature.properties.NAME;
+    
+    layer.bindPopup(toTitleCase(name));
+}
+
+function onEachPOIFeature(feature, layer){
+    layer.bindPopup('<strong>' + feature.properties.type + '<strong>');
+}
+
+function onEachviewPOI (feature, layer) {
+layer.bindPopup('<strong>' + feature.properties.Name);
+ }
+
+function highlightOverlook(name) {
+    var marker = overlookMarkers[name];
+    if (!marker) return;
+
+    marker.setZIndexOffset(1000);
+
+    if (marker._icon) {
+        marker._icon.classList.add("hover-highlight");
+    }
+}
+
+function resetOverlook(name) {
+    var marker = overlookMarkers[name];
+    if (!marker) return;
+
+    marker.setZIndexOffset(0);
+
+    if (marker._icon) {
+        marker._icon.classList.remove("hover-highlight");
+    }
+}
+
+// add the data
 var hikeLayer = L.geoJSON(trails, {
     filter: function (feature) {
         return feature.properties.FIRST_Type === "Hike";
@@ -136,6 +257,18 @@ var horseBikeLayer = L.geoJSON(trails, {
     onEachFeature: onEachTrailFeature
 }).addTo(map);
 
+
+map.on('almost:over', function (e) {
+    var layer = e.layer;
+
+    highlightFeatures({ target: layer });
+    layer.openPopup();
+});
+
+map.on('almost:out', function (e) {
+    resetTrailHighlight({ target: e.layer });
+});
+
 var slopelayer = L.geoJSON(slope, {
     style: styleSlope
 });
@@ -145,11 +278,13 @@ var parkboundary = L.geoJSON(boundary, {
 }).addTo(map);
 
 var roadlines = L.geoJSON(road, {
-    style: styleroad
+    style: styleroad,
+    onEachFeature: onEachRoadFeature
 }).addTo(map);
 
 var parkinglots = L.geoJSON(parking,  {
-    style: styleparking
+    style: styleparking,
+    onEachFeature: onEachParkingFeature
 });
 
 var parkingIcon = L.icon({
@@ -161,13 +296,80 @@ var parkingIcon = L.icon({
 var parkpoints = L.geoJSON(lots, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, { icon: parkingIcon });
-    }
+    },
+    onEachFeature: onEachParkingPointFeature
 });
 
 var parkingLayer = L.layerGroup([parkinglots, parkpoints]).addTo(map);
 
+var poiLayer = L.geoJSON(poi, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: poiMarker(feature.properties.type)
+        });
+    },
+    onEachFeature: onEachPOIFeature
+}).addTo(map);
 
-// build legend
+var ViewpoiLayer = L.geoJSON(viewpoints, {
+    pointToLayer: function (feature, latlng) {
+        var marker = L.marker(latlng, {
+            icon: viewPOIMarker(feature.properties.type)
+        });
+
+        // store marker by name for hover linking
+        overlookMarkers[feature.properties.Name] = marker;
+
+        return marker;
+    },
+    onEachFeature: onEachviewPOI
+}).addTo(map);
+
+var northView = L.geoJSON(view, {
+    filter: function (feature) {
+        return feature.properties.vis_from === "Northern Overlook";
+    },
+    style: styleviewshed
+});
+
+var escarpmentView = L.geoJSON(view, {
+    filter: function (feature) {
+        return feature.properties.vis_from === "Escarpment Overlook";
+    },
+    style: styleviewshed
+});
+
+var southView = L.geoJSON(view, {
+    filter: function (feature) {
+        return feature.properties.vis_from === "Southern Overlook";
+    },
+    style: styleviewshed
+});
+
+var towerView = L.geoJSON(view, {
+    filter: function (feature) {
+        return feature.properties.vis_from === "Observation Tower";
+    },
+    style: styleviewshed
+});
+
+function toggleLayer(layer) {
+    if (map.hasLayer(layer)) {
+        map.removeLayer(layer);
+    } else {
+        map.addLayer(layer);
+    }
+}
+function toggleLayerZoom(layer) {
+    if (map.hasLayer(layer)) {
+        map.removeLayer(layer);
+    } else {
+        map.addLayer(layer);
+        map.fitBounds(layer.getBounds());
+    }
+}
+
+// build slope legend
 function buildLegendHTML(title, grades, colorFunction) {
     var html = '<div class="legend-title">' + title + '</div>';
     
@@ -197,8 +399,63 @@ if (slopeLegendDiv) {
     slopeLegendDiv.style.display = 'none';
 }
 
+//build trail usage legend
+function buildTrailLegend() {
+    var html = '<div class="legend-title">Trail Types</div>';
+
+    var categories = [
+        { label: "Hiking Trails", value: "Hike" },
+        { label: "Horseback Riding & Biking Trails", value: "Horse and Bike" }
+    ];
+
+    categories.forEach(function(cat) {
+        html +=
+            '<div class="legend-box">' +
+                '<span class="legend-line" style="background:' + getTrailColor(cat.value) + '"></span>' +
+                '<span>' + cat.label + '</span>' +
+            '</div>';
+    });
+
+    return html;
+}
+
+// insert trail legend into side panel
+var trailLegendDiv = document.getElementById('trail-legend');
+if (trailLegendDiv) {
+    trailLegendDiv.innerHTML = buildTrailLegend();
+}
+//-- search
+var searchLayers = L.featureGroup([
+    hikeLayer,
+    horseBikeLayer
+]);
+var searchControl = new L.Control.Search({
+    position:'topright',
+    layer: searchLayers,
+    propertyName: 'Name',
+    marker: false,
+    markeranimate: true,
+    delayType: 50,
+    collapsed: false,
+    textPlaceholder: 'Search by Trail Name: e.g. Red Bird Trail',   
+    moveToLocation: function(latlng, title, map) {
+        map.setView(latlng, 16);
+    }
+});
+searchControl.addTo(map);
+
+searchControl.on('search:locationfound', function(e) {
+    var layer = e.layer;
+
+    highlightFeatures({ target: layer });
+
+    layer.openPopup();
+});
+
+//layer control
 var baseLayers = {
-     'Satellite Imagery' : satellite_base
+     'Satellite Imagery' : satellite_base,
+     'Street Map' : light
     };
 var overlays={
     "Hiking Trails": hikeLayer,
@@ -206,8 +463,38 @@ var overlays={
     "Slope": slopelayer,
     "Roads": roadlines,
     "Parking Areas": parkingLayer,
+    "Points of Interest": poiLayer,
+    "Scenic Overlooks": ViewpoiLayer,
 };
 var layerControl = L.control.layers(baseLayers, overlays , {collapsed: false}).addTo(map);
+
+// build poi legend
+function buildPOILegend() {
+    var html = '<div class="legend-title">Points of Interest</div>';
+
+    var categories = [
+        { label: "Bathrooms", icon: "images/bathroom_icon.png" },
+        { label: "Scenic Overlooks", icon: "images/overlook_icon.png" },
+        { label: "Observation Towers", icon: "images/tower_icon.png" },
+        { label: "Park Office", icon: "images/park_icon.png" }
+    ];
+
+    categories.forEach(function(cat) {
+        html +=
+            '<div class="legend-box">' +
+                '<img src="' + cat.icon + '" style="width:18px; height:18px; margin-right:8px;">' +
+                '<span>' + cat.label + '</span>' +
+            '</div>';
+    });
+
+    return html;
+}
+
+//intsert poi legend into side panel
+var poiLegendDiv = document.getElementById('poi-legend');
+if (poiLegendDiv) {
+    poiLegendDiv.innerHTML = buildPOILegend();
+}
 
 //return to orignial view
 var homeCenter = map.getCenter();
@@ -235,3 +522,51 @@ map.on('overlayremove', function (e) {
         document.getElementById('slope-legend').style.display = 'none';
     }
 });
+
+//automatically show and hide trail legend
+function updateTrailLegend() {
+    var legend = document.getElementById('trail-legend');
+
+    if (map.hasLayer(hikeLayer) || map.hasLayer(horseBikeLayer)) {
+        legend.style.display = 'block';   // at least one is ON
+    } else {
+        legend.style.display = 'none';    // both are OFF
+    }
+}
+map.on('overlayadd', updateTrailLegend);
+map.on('overlayremove', updateTrailLegend);
+
+//auto hide/show poi legend
+map.on('overlayadd', function (e) {
+    if (e.layer === poiLayer) {
+        document.getElementById('poi-legend').style.display = 'block';
+    }
+});
+
+map.on('overlayremove', function (e) {
+    if (e.layer === poiLayer) {
+        document.getElementById('poi-legend').style.display = 'none';
+    }
+});
+
+// automatically hide/show veiwshed buttons
+var viewshedBtnDiv = document.getElementById('viewshed-buttons');
+
+viewshedBtnDiv.style.display = 'block';
+
+map.on('overlayadd', function (e) {
+    if (e.layer === ViewpoiLayer) {
+        viewshedBtnDiv.style.display = 'block';
+    }
+});
+
+map.on('overlayremove', function (e) {
+    if (e.layer === ViewpoiLayer) {
+        viewshedBtnDiv.style.display = 'none';
+    }
+});
+
+//geolocate
+L.geolet({ position: 'topleft' }).addTo(map);
+
+

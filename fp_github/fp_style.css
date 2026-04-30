@@ -15,6 +15,14 @@ html, body {
   margin-bottom: 6px;
 }
 
+.legend-line {
+  display: inline-block;
+  width: 30px;
+  height: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
 .legend-color {
   width: 18px;
   height: 18px;
@@ -32,4 +40,98 @@ html, body {
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 8px;
+}
+
+.legend-box img {
+    vertical-align: middle;
+}
+
+#viewshed-buttons {
+    display: flex;
+    flex-direction: column;  
+    gap: 8px;               
+}
+
+#viewshed-buttons button {
+    width: 100%; 
+}
+
+#viewshed-buttons button {
+    padding: 8px;
+    border: none;
+    background: #f0f0f0;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#viewshed-buttons button:hover {
+    background: #d9d9d9;
+}
+
+.hover-highlight {
+    filter: drop-shadow(0 0 15px yellow);
+    transform: scale(1.25);
+    transition: 0.2s ease;
+}
+
+.leaflet-control-search {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    border-radius: 6px;
+}
+
+/* input box */
+.leaflet-control-search input {
+    width: 320px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background: white;
+}
+
+/* dropdown results container */
+.leaflet-control-search .search-tooltip {
+    background: white;
+    border: 1px solid #999;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+/* each result item */
+.leaflet-control-search .search-tip {
+    padding: 6px 10px;
+    cursor: pointer;
+    color: #222;
+}
+
+/* hover state */
+.leaflet-control-search .search-tip:hover {
+    background: #2b8cff;
+    color: white;
+}
+
+/*layer control styling*/
+.leaflet-control-layers {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    font-family: "Noto Sans", sans-serif;
+    font-size: 13px;
+}
+
+/* section headers (Basemaps / Overlays) */
+.leaflet-control-layers-group-name {
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+/* individual layer labels */
+.leaflet-control-layers label {
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+.leaflet-control-layers label:hover {
+    background: #f0f0f0;
+    border-radius: 4px;
 }

@@ -1,11 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Final Project Addition Information</title>
-    </head>
-    <body>
-    <p>additional map info</p>
-    <a href='weis_fp.html'>Back to map page</a>
-    </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GEO 455 - Final Project Map Information</title>
+
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 0; line-height: 1.5; }
+    header, main, footer { max-width: 900px; margin: 0 auto; padding: 16px; }
+    nav a { margin-right: 12px; }
+    .hero { background: #f3f3f3; border-radius: 12px; padding: 12px; }
+    .center { text-align: center; }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="center">Additional Map Information</h1>
+    <p class="center">GEO 455 • Web Mapping • Spring 2026</p>
+
+    <nav class="center">
+      <a href="#about">About</a>
+      <a href="#use">How to use this map</a>
+      <a href="#data">Data Sources</a>
+      <a href="#methods">Methodology</a>
+      <a href="#credits">Project Summary and Credits</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="about">
+      <h2>About this map</h2>
+      <p>This map shows the trails, points of interest, and scenic overlooks and their viewsheds in High Cliff State Park. This map is intended for people planning to visit or currently visiting the park. This map will help with trip planning and navigation within the park. There is no existing interactive web map for this park and the trails and it is important to provide this service to park visitors as it is easier to navigate and use than a static map.</p>
+    </section>
+      <br>
+    <section class="hero" id="use">
+      <h2>How to use this map</h2>
+      <ul>
+        <li>update</li>
+        <li>update</li>
+      </ul>
+    </section>
+      <br>
+    <section class="hero" id="data">
+      <h2>Data Sources</h2>
+      <ul>
+        <li>name, link, date, what it represents</li>
+        <li><a href="https://gis-calumet.hub.arcgis.com/datasets/63c8e1f279a74f00958ee466a8d59fb9_0/explore?filters=eyJQQVJLIjpbIkhpZ2ggQ2xpZmYiXX0%3D&location=44.093598%2C-88.244209%2C11">Trail line data</a> from the Calumet County GIS Data Hub</li>
+        <li><a href="https://gis-calumet.hub.arcgis.com/documents/fb3b1799b6f64cc5a225a487f1f86f29/about">DEM</a> from the Calumet County GIS Data Hub. This data is from 2018 and is 2 foot accuracy LiDAR data</li>
+        <li><a href="https://gis-calumet.hub.arcgis.com/datasets/03c4fd05b97044b59910225f90cb6861_0/explore?location=44.067597%2C-88.221912%2C11">Road Centerlines</a> from the Calumet County GIS Data Hub</li>
+        <li><a href="https://gis-calumet.hub.arcgis.com/datasets/e00ec4789f9e4425b6774dcca9f2c6aa_0/explore?location=44.067086%2C-88.218811%2C11">Park Boundaries</a> from the Calumet County GIS Data Hub</li>
+        <li><a href="https://www.travelcalumet.com/460/High-Cliff-State-Park">Static Park Map of High Cliff State Park</a></li>
+
+          
+      </ul>
+    </section>
+      <br>
+    <section class="hero" id="methods">
+      <h2>Methodology</h2>
+      <ul>
+        <li>major processesing steps</li>
+        <li>The static park map was brought into ArcGIS Pro and georeferenced and points of interest such as bathrooms, scenic overlooks, and parking lots were manually digitized.</li>
+        <li>The trail lines were dissolved, so that each trail was represented by only one line and all fields excpet name, mileage, and usage were deleted.</li>
+        <li>The slope data was derived by using the DEM and the trail line data. The trail lines were split into 5 foot segments using the "Generate Points Along Lines" and "Split Line at Points" tools in ArcGIS Pro.
+          The DEM data was then added to each segment using the "Add Surface Information" tool using the average slope.</li>
+        <li>The viewsheds were calculated using the scenic overlook points and the DEM. First, the "Observer Points" tool was used to determine the areas visibile from each overlook, 
+            then the "Minimum Bounding Geometry" tool was used to encompass the pixels visible to produce a single polygon of visible area for each viewpoint.</li>
+        <li>Feature classes were exported from ArcGIS Pro using the "Feature to JSON" tool, checking the boxes to Output to GeoJSON and to reproject to WGS84. 
+            Within the coding software, a variable name was added to the data and the file was changed from .geojson to .js and the data was then added to the map.</li>
+
+
+        </ul>
+    </section>
+      <br>
+    <section class="hero" id="credits">
+      <h2>Project Summary and Credits</h2>
+      <ul>
+        <li>Strengths:
+            <br> - The legends that automatically hide when the layer is not visible on the map reduces visual clutter and enables users to focus on the information they wish to see
+            <br> - The ability to get the real-time location of the user will be useful for people who are actively in the park and navigating
+            <br> - Overall, the webpage works quickly and reacts fast, even with the size of data integrated
+            <br> - The map frame is still the main focus of the page, not getting diminished by the side panel, layer controls, or mini map</li>
+        <li>Limitations:
+            <br> - Some of the main attractions such as the Cheif Red Bird Statue and Lime Kiln Ruins are not documented on this map
+            <br> - Some of the data files can be quite large (e.g., the trail slope data). This could slow down performance when trying to load this data in
+            <br> - The viewshed polygons only account for the DEM segments that included area within the park boundary and may not be completely accurate to what all can be seen
+            <br> - The view shed polygons were also created using the minimum bounding geometry to encompass the raster pixels and could be an overestimation to what can be seen</li>
+        <li>Next steps for final submission: 
+            <br> 1. Determine how to distinguish individual trails while still categorizing by usage 
+            <br> 2. Add details to trail popups
+            <br> 3. Improve styling of viewshed polygons</li>
+        <li>limitations, uncertainty, author credits, basemap attribution</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:weis2727@uwlax.edu?subject=GEO%20455%20Webmapping">Email me</a>
+        • <a href="https://github.com/weis2727">GitHub</a>
+      </p>
+    </section>
+
+<footer class="center">
+    <small><a href="weis_fp.html">Return to map</a></small>
+  </footer>
+</main>
+</body>
 </html>
