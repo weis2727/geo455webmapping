@@ -30,11 +30,28 @@ var miniMap = new L.Control.MiniMap(miniLayer, {
   position: "bottomleft"
 }).addTo(map);
 
-// color palette trail
+// trail dashes
+function getTrailDash(value) {
+return value === "Hike" ? '' :
+           value === "Horse and Bike" ? '5, 10' :
+           ''; // obvious fallback
+}
+// color for trails
+// generate 11 unique trail colors (HSL wheel)
 function getTrailColor(value) {
-return value === "Hike" ? '#5286e4' :
-           value === "Horse and Bike" ? '#f0cf65' :
-           'red'; // obvious fallback
+    return value === "Lime-Kiln Trail" ? '#33A02C':
+            value === "Indian Mound Trail" ? '#a5ddfa':
+            value === "Red Bird Trail" ? '#E31A1C':
+            value === "Butterfly Pond Trail" ? '#c4a3eb':
+            value === "North Trail System" ? '#fd8a89':
+            value === "Forest Mgmt Trail" ? '#B2DF8A':
+            value === "Openfield Trail" ? '#43a3e3':
+            value === "Overlook Trail" ? '#FF7F00':
+            value === "Woodland Trail" ? '#FDBF6F':
+            value === "Shortcut Pass" ? '#ac7fdd':
+            value === "South Trail System" ? '#fafa89':
+    'grey';
+
 }
 
 //color for slope
@@ -48,9 +65,10 @@ function getSlopeColor (value) {
 
 function styleTrail(feature){
     return { 
-        weight: 4,
-        opacity: 0.7,
-        color: getTrailColor(feature.properties.FIRST_Type)
+        weight: 4.5,
+        opacity: 0.8,
+        color: getTrailColor(feature.properties.Name),
+        dashArray: getTrailDash(feature.properties.FIRST_Type)
     };
 }
 
@@ -143,7 +161,7 @@ function highlightFeatures(e) {
     var layer = e.target;
     
     layer.setStyle({
-        weight: 5.5,
+        weight: 6,
         opacity: 1
     });
     
@@ -403,18 +421,16 @@ if (slopeLegendDiv) {
 function buildTrailLegend() {
     var html = '<div class="legend-title">Trail Types</div>';
 
-    var categories = [
-        { label: "Hiking Trails", value: "Hike" },
-        { label: "Horseback Riding & Biking Trails", value: "Horse and Bike" }
-    ];
+    html +=
+        '<div class="legend-box">' +
+            '<span class="legend-line solid-line"></span>' +
+            '<span>Hiking Trails</span>' +
+        '</div>' +
 
-    categories.forEach(function(cat) {
-        html +=
-            '<div class="legend-box">' +
-                '<span class="legend-line" style="background:' + getTrailColor(cat.value) + '"></span>' +
-                '<span>' + cat.label + '</span>' +
-            '</div>';
-    });
+        '<div class="legend-box">' +
+            '<span class="legend-line dashed-line"></span>' +
+            '<span>Horseback Riding & Biking Trails</span>' +
+        '</div>';
 
     return html;
 }
