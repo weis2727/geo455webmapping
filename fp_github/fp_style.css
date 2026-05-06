@@ -5,7 +5,7 @@ html, body {
 }
 
 #map {
-  min-height: calc(100vh);
+  min-height: calc(90vh);
   width: 100%;
 }
 
