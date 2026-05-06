@@ -482,7 +482,7 @@ var overlays={
     "Points of Interest": poiLayer,
     "Scenic Overlooks": ViewpoiLayer,
 };
-var layerControl = L.control.layers(baseLayers, overlays , {collapsed: false}).addTo(map);
+var layerControl = L.control.layers(baseLayers, overlays , {collapsed: true}).addTo(map);
 
 // build poi legend
 function buildPOILegend() {
