@@ -25,7 +25,7 @@ var miniLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   attribution: '&copy; OpenStreetMap'
 });
 var miniMap = new L.Control.MiniMap(miniLayer, {
-  toggleDisplay: true,
+  toggleDisplay: false,
   minimized: false,
   position: "bottomleft"
 }).addTo(map);
@@ -584,5 +584,29 @@ map.on('overlayremove', function (e) {
 
 //geolocate
 L.geolet({ position: 'topleft' }).addTo(map);
+
+//toggle mini map
+var toggleBtn = L.easyButton({
+  states: [{
+    stateName: 'shown',
+    title: 'Hide Mini Map',
+    onClick: function(btn, map) {
+      miniMap._minimize();
+      btn.state('hidden');
+    },
+    icon: '<span class="mini-map-label">Hide Mini Map</span>'
+  }, {
+    stateName: 'hidden',
+    title: 'Show Mini Map',
+    onClick: function(btn, map) {
+      miniMap._restore();
+      btn.state('shown');
+    },
+    icon: '<span class="mini-map-label">Show Mini Map</span>'
+  }]
+}).setPosition('bottomleft').addTo(map);
+
+// styling
+toggleBtn._container.classList.add('mini-map-toggle-btn');
 
 

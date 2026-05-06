@@ -146,3 +146,16 @@ html, body {
     background: #f0f0f0;
     border-radius: 4px;
 }
+
+.mini-map-toggle-btn {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.mini-map-toggle-btn button {
+  width: auto !important;
+  padding: 0 10px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
